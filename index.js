@@ -26,6 +26,8 @@ function draw() {
         rectMode(CORNERS)
         rect(x * w, height - y, (x + 1) * w, height)
     }
+    stroke(255);
+    line(width/2,0,width/2,height-arrHeight);
 
     //for (i = 1; i < arr.length; i++) {
 
