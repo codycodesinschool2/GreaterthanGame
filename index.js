@@ -26,29 +26,33 @@ function draw() {
         rectMode(CORNERS)
         rect(x * w, height - y, (x + 1) * w, height)
     }
-    stroke(255);
-    line(width/2,0,width/2,height-arrHeight);
 
     //for (i = 1; i < arr.length; i++) {
 
     textSize(32);
     console.log(arr[j], str(arr[j + 1]))
     textAlign(CENTER, CENTER)
-    if (((arr[j]-arr[j+1])*934746356)%9 < 4) {
+    if (((arr[j+1]-arr[j])*27804780421)%9 < 6) {
         fill(255);
         text(str(arr[j]), width / 4, height / 2)
-    } else {
+    } else if(((arr[j+1]-arr[j])*27804780421)%9 < 6){
         //text(str(arr[j]),width*0.75,height/2)
         stroke(255);
         tallyMark(arr[j], width / 4, height / 2)
+    } else {
+        text(roman(arr[j]), width * 0.25, height / 2)
+
     }
-    if (((arr[j]-arr[j+1])*4578302409)%9 < 5) {
+    if (((arr[j]-arr[j+1])*4578302409)%9 < 6) {
         fill(255);
         text(str(arr[j + 1]), width * 0.75, height / 2)
-    } else {
+    } else if(((arr[j]-arr[j+1])*4578302409)%9 > 6){
         //text(str(arr[j]),width*0.75,height/2)
         stroke(255);
         tallyMark(arr[j + 1], width * 0.75, height / 2)
+    } else {
+        fill(255);
+        text(roman(arr[j+1]), width * 0.75, height / 2)
     }
 
 
@@ -62,6 +66,11 @@ function draw() {
     //}
     stroke(255);
     line(0, height - arrHeight, width, height - arrHeight);
+}
+
+function roman(n) {
+    let romanization = "I II III IV V VI VII VIII IX X".split(" ");
+    return romanization[n-1]
 }
 
 function tallyMark(n, x, y) {
