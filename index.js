@@ -13,7 +13,6 @@ function setup() {
         arr[x] = x + 1;
     }
     shuffle(arr, true);
-    console.log(arr);
     w = width / arr.length;
 }
 
@@ -30,29 +29,37 @@ function draw() {
     //for (i = 1; i < arr.length; i++) {
 
     textSize(32);
-    console.log(arr[j], str(arr[j + 1]))
     textAlign(CENTER, CENTER)
-    if (((arr[j+1]-arr[j])*27804780421)%9 < 6) {
+    let lN = 27804780421;
+    let rN = 45783024092;
+
+    if (((arr[j+1]-arr[j])*lN)%12 < 9) {
         fill(255);
         text(str(arr[j]), width / 4, height / 2)
-    } else if(((arr[j+1]-arr[j])*27804780421)%9 < 6){
+    } else if(((arr[j+1]-arr[j])*lN)%12 < 6){
         //text(str(arr[j]),width*0.75,height/2)
         stroke(255);
         tallyMark(arr[j], width / 4, height / 2)
-    } else {
+    } else if(((arr[j+1]-arr[j])*lN)%12 < 3){
         text(roman(arr[j]), width * 0.25, height / 2)
 
+    } else {
+        text(bin(arr[j]), width * 0.25, height / 2)
+
     }
-    if (((arr[j]-arr[j+1])*4578302409)%9 < 6) {
+    if (((arr[j]-arr[j+1])*rN)%12 < 9) {
         fill(255);
-        text(str(arr[j + 1]), width * 0.75, height / 2)
-    } else if(((arr[j]-arr[j+1])*4578302409)%9 > 6){
+        text(str(arr[j+1]), width * 0.75, height / 2)
+    } else if(((arr[j]-arr[j+1])*rN)%12 < 6){
         //text(str(arr[j]),width*0.75,height/2)
         stroke(255);
-        tallyMark(arr[j + 1], width * 0.75, height / 2)
-    } else {
-        fill(255);
+        tallyMark(arr[j+1], width * 0.75, height / 2)
+    } else if(((arr[j]-arr[j+1])*rN)%12 < 3){
         text(roman(arr[j+1]), width * 0.75, height / 2)
+
+    } else {
+        text(bin(arr[j+1]), width * 0.75, height / 2)
+
     }
 
 
@@ -71,6 +78,10 @@ function draw() {
 function roman(n) {
     let romanization = "I II III IV V VI VII VIII IX X".split(" ");
     return romanization[n-1]
+}
+
+function bin(n) {
+    return "b" + ((n >>> 0).toString(2));
 }
 
 function tallyMark(n, x, y) {
@@ -95,6 +106,14 @@ function isSorted() {
 }
 
 function mousePressed() {
+    if(isSorted()) {
+        shuffle(arr,true);
+        i = 1;
+        j = 0;
+        firstHit = millis();
+        loop();
+        return;
+    }
     if(firstHit == -1) {
         firstHit = millis();
     }
@@ -115,6 +134,5 @@ function mousePressed() {
     }
     if (isSorted()) {
         noLoop();
-        console.log("didid")
     }
 }
